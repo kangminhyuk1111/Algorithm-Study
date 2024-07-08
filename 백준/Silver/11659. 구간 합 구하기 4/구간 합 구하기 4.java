@@ -1,33 +1,36 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int suNo = Integer.parseInt(stringTokenizer.nextToken()); // 5
-        int quizNo = Integer.parseInt(stringTokenizer.nextToken()); // 3
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        // 5 4 3 2 1 주입 해야됨
-        long[] S = new long[suNo+1];
+        final int N = Integer.parseInt(st.nextToken());
+        final int M = Integer.parseInt(st.nextToken());
+        final int[] prefixSum = new int[N+1];
 
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        st = new StringTokenizer(br.readLine());
 
-        // 1 ~ 5
-        for(int i = 1; i <= suNo; i++){
-            S[i] = S[i-1] + Integer.parseInt(stringTokenizer.nextToken());
+        for (int i = 1; i <= N; i++) {
+            prefixSum[i] = prefixSum[i-1] + Integer.parseInt(st.nextToken());
         }
 
-        for (int q = 0; q < quizNo; q++) {
-            stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-            int i = Integer.parseInt(stringTokenizer.nextToken());
-            int j = Integer.parseInt(stringTokenizer.nextToken());
+        // 3회 반복
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
 
-            System.out.println(S[j] - S[i-1]);
+            final int A = Integer.parseInt(st.nextToken());
+            final int B = Integer.parseInt(st.nextToken());
+
+            int answer = prefixSum[B] - prefixSum[A-1];
+
+            System.out.println(answer);
         }
+
+        br.close();
     }
 }
