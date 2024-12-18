@@ -1,27 +1,30 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        String answer = "";
-
-        Map<String, Integer> completedRunners = new HashMap<>();
-
-        for (String c : completion) {
-            completedRunners.put(c, completedRunners.getOrDefault(c, 0) + 1);
-        }
-
-        for (String p : participant) {
-            boolean isCompletedRunner = completedRunners.getOrDefault(p, 0) > 0;
-
-            if(isCompletedRunner) {
-                completedRunners.put(p, completedRunners.get(p) - 1);
+        Set<String> runners = new HashSet<>();
+        
+        for (String runner: participant) {
+            if (!runners.contains(runner)) {
+                runners.add(runner);
             } else {
-                answer = p;
-                break;
+                runners.remove(runner);
             }
         }
-
-        return answer;
+        
+        for (String runner: completion) {
+            if (runners.contains(runner)) {
+                runners.remove(runner);
+            } else {
+                runners.add(runner);
+            }
+        }
+        
+        for (String ans: runners) {
+            return ans;
+        }
+        return null;
     }
 }
