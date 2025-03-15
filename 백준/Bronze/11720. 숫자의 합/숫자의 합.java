@@ -1,21 +1,22 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-        String sNum = sc.next();
-        sc.close();
-
-        char[] charArray = sNum.toCharArray();
-        long sum = 0;
-
-        for (int i = 0; i < n; i++) {
-            sum += charArray[i] - '0';
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        int N = Integer.parseInt(br.readLine()); 
+        String[] numbers = br.readLine().split("");
+        
+        int result = 0;
+        
+        for(int i = 0; i < N; i++) {
+            result += Integer.parseInt(numbers[i]);
         }
-
-        System.out.println(sum);
-
+        
+        bw.write(String.valueOf(result));
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
