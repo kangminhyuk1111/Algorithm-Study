@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String args[]) throws IOException {
@@ -10,11 +11,7 @@ public class Main {
         int N = Integer.parseInt(inputs[0]);
         int M = Integer.parseInt(inputs[1]);
 
-        String[] array = br.readLine().split(" ");
-        int[] arr = new int[array.length];
-        for(int i = 0; i < array.length; i++) {
-            arr[i] = Integer.parseInt(array[i]);
-        }
+        int[] arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
         // 합배열 2 - 4 = sumArr[4] - sumArr[2-1]
         int[] sumArr = new int[arr.length + 1];
