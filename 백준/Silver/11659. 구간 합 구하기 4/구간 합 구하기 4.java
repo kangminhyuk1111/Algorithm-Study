@@ -1,36 +1,40 @@
 import java.io.*;
-import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String args[]) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        String[] inputs = br.readLine().split(" ");
+        int N = Integer.parseInt(inputs[0]);
+        int M = Integer.parseInt(inputs[1]);
 
-        final int N = Integer.parseInt(st.nextToken());
-        final int M = Integer.parseInt(st.nextToken());
-        final int[] prefixSum = new int[N+1];
-
-        st = new StringTokenizer(br.readLine());
-
-        for (int i = 1; i <= N; i++) {
-            prefixSum[i] = prefixSum[i-1] + Integer.parseInt(st.nextToken());
+        String[] array = br.readLine().split(" ");
+        int[] arr = new int[array.length];
+        for(int i = 0; i < array.length; i++) {
+            arr[i] = Integer.parseInt(array[i]);
         }
 
-        // 3회 반복
-        for (int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
-
-            final int A = Integer.parseInt(st.nextToken());
-            final int B = Integer.parseInt(st.nextToken());
-
-            int answer = prefixSum[B] - prefixSum[A-1];
-
-            System.out.println(answer);
+        // 합배열 2 - 4 = sumArr[4] - sumArr[2-1]
+        int[] sumArr = new int[arr.length + 1];
+        sumArr[0] = 0;
+        for(int i = 1; i <= arr.length; i++) {
+            sumArr[i] = sumArr[i-1] + arr[i-1];
         }
 
+        for(int i = 0; i < M; i++) {
+            String[] sRanges = br.readLine().split(" ");
+            int start = Integer.parseInt(sRanges[0]);
+            int end = Integer.parseInt(sRanges[1]);
+
+            int result = sumArr[end] - sumArr[start - 1];
+
+            bw.write(result + "\n");
+        }
+
+        bw.flush();
+        bw.close();
         br.close();
     }
 }
